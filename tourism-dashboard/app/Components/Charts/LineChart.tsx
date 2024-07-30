@@ -8,7 +8,7 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons';
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 interface ReviewData {
-    "": number; // Assuming this empty key is not actually used
+    "": number; 
     date_of_stay: string;
     review: string;
     trip_type: string;

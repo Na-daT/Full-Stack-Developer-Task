@@ -103,13 +103,11 @@ export default function Home() {
           </Card>
         </div>
         <div className="col-6">
-          {/* Add another Card or any other content here */}
           <Card className="pt-4">
             <CardHeader className="pb-1">
             </CardHeader>
             <CardContent>
-              {/* Example content */}
-              <p>Additional content goes here</p>
+              <p>reviews</p>
             </CardContent>
           </Card>
         </div>

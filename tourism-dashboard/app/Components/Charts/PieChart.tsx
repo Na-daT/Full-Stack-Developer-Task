@@ -6,7 +6,7 @@ import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
 Chart.register(ArcElement, Tooltip, Legend);
 
 interface ReviewData {
-    "": number; // Assuming this empty key is not actually used
+    "": number;
     date_of_stay: string;
     review: string;
     trip_type: string;
