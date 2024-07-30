@@ -7,9 +7,10 @@ import { ActivityIcon, PercentIcon, TrendingUpIcon, UsersIcon } from "@/componen
 import StatCardItem from "./Components/Stats"
 import SentimentTrendsChart from './Components/Charts/LineChart';
 import PieChart from './Components/Charts/PieChart';
+import ReviewTable from './Components/Reviews';
 
 interface ReviewData {
-  "": number; // Assuming this empty key is not actually used
+  "": number;
   date_of_stay: string;
   review: string;
   trip_type: string;
@@ -88,12 +89,12 @@ export default function Home() {
         </CardContent>
       </Card>
 
-      <div className="min-h-[20vh]">
+      <div className="min-h-[20vh] pb-4">
         <SentimentTrendsChart data={stats.Data} />
       </div>
 
-      <div className="row">
-        <div className="col-6">
+      <div className="grid grid-cols-3 gap-4">
+        <div>
           <Card className="pt-4">
             <CardHeader className="pb-1">
             </CardHeader>
@@ -102,16 +103,16 @@ export default function Home() {
             </CardContent>
           </Card>
         </div>
-        <div className="col-6">
+        <div className="col-span-2">
           <Card className="pt-4">
             <CardHeader className="pb-1">
             </CardHeader>
             <CardContent>
-              <p>reviews</p>
+              <ReviewTable data={stats.Data} />
             </CardContent>
           </Card>
         </div>
       </div>
-    </div>
+    </div >
   );
 }

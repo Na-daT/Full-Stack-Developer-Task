@@ -63,9 +63,7 @@ const PieChart: React.FC<PieChartProps> = ({ data }) => {
     };
 
     return (
-        <div style={{ position: 'relative', width: '100%', height: '400px' }}>
-            <Pie data={chartData} options={chartOptions} />
-        </div>
+        <Pie data={chartData} options={chartOptions} />
     );
 };
 

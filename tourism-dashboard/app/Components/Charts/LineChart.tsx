@@ -8,7 +8,7 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons';
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 interface ReviewData {
-    "": number; 
+    "": number;
     date_of_stay: string;
     review: string;
     trip_type: string;
@@ -29,7 +29,7 @@ interface SentimentTrendsChartProps {
 }
 
 const SentimentTrendsChart: React.FC<SentimentTrendsChartProps> = ({ data }) => {
-    const chartRef = useRef(null);
+    const chartRef = useRef<HTMLDivElement>(null);
 
     const sentimentCounts = useMemo(() => {
         const counts: SentimentCounts = data.reduce((acc, curr) => {
@@ -49,7 +49,6 @@ const SentimentTrendsChart: React.FC<SentimentTrendsChartProps> = ({ data }) => 
             return acc;
         }, {} as SentimentCounts);
 
-        // Convert to sorted array
         return Object.entries(counts).sort(([a], [b]) => new Date(a).getTime() - new Date(b).getTime());
     }, [data]);
 
@@ -76,6 +75,7 @@ const SentimentTrendsChart: React.FC<SentimentTrendsChartProps> = ({ data }) => 
             },
         ],
     };
+
     const chartOptions = {
         responsive: true,
         maintainAspectRatio: false,
@@ -108,7 +108,7 @@ const SentimentTrendsChart: React.FC<SentimentTrendsChartProps> = ({ data }) => 
     };
 
     return (
-        <div className="pt-4" style={{ position: 'relative' }}>
+        <div className="pt-4" style={{ position: 'relative', height: '400px' }}>
             <div style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 5, cursor: 'pointer', backgroundColor: 'white', borderRadius: '5%', padding: '10px' }} onClick={handleDownload}>
                 <FontAwesomeIcon icon={faDownload} />
             </div>
