@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import Navigation from './Components/Navigation';
+import { Button } from "@/components/ui/button";
+
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,6 +17,28 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <body className={`${inter.className} h-full`}>
         <div className="flex h-full">
+          <nav className=" bg-gray-200 text-gray-700 p-4 min-w-fit shadow-md">
+            <ul className="space-y-4">
+              <li>
+                <Button variant="ghost" disabled>Intro</Button>
+              </li>
+              <li>
+                <Button variant="ghost">Categories</Button>
+              </li>
+              <li>
+                <Button variant="ghost">Timeline</Button>
+              </li>
+              <li>
+                <Button variant="ghost">Explore Regions</Button>
+              </li>
+              <li>
+                <Button variant="ghost">Locations</Button>
+              </li>
+              <li>
+                <Button variant="ghost">Aspects</Button>
+              </li>
+            </ul>
+          </nav>
           <Navigation />
           <main className="flex-grow w-full p-8">
             {children}

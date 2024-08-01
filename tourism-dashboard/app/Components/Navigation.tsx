@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Navigation() {
     return (
-        <nav className="bg-gray-200 text-gray-700 h-full p-4 min-w-fit shadow-md flex flex-col items-start">
+        <nav className="navbar bg-gray-200 text-gray-700 p-4 min-w-fit shadow-md">
             <ul className="space-y-4">
                 <li>
                     <Button variant="ghost" disabled>Intro</Button>
