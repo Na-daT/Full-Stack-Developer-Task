@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
-import { Pagination, PaginationContent, PaginationItem, PaginationPrevious, PaginationLink, PaginationNext, PaginationEllipsis } from "@/components/ui/pagination"; // Updated import
+import { Pagination, PaginationContent, PaginationItem, PaginationPrevious, PaginationLink, PaginationNext, PaginationEllipsis } from "@/components/ui/pagination";
+import domtoimage from 'dom-to-image';
 
 interface ReviewData {
     "": number;
@@ -41,33 +42,50 @@ export default function ReviewTable({ data }: ReviewTableProps) {
         pageNumbers.push(i);
     }
 
-    return (
-        <div className="mx-auto px-4 md:px-6 max-w-2xl grid gap-8">
-            {currentPageData.map((review, index) => (
-                <React.Fragment key={index}>
-                    <div className="flex gap-4">
-                        <Avatar className="w-10 h-10 border">
-                            <AvatarImage src="/placeholder-user.jpg" />
-                            <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
-                        <div className="grid gap-2">
-                            <div className="flex items-center gap-2">
-                                <div className="font-medium">Review from {review.Platform} ({review.date_of_stay})</div>
-                                <div className={`bg-${review.Sentiment == 'Positive' ? 'green' : review.Sentiment == 'Negative' ? 'red' : 'gray'}-100 px-2 py-0.5 rounded-full text-xs font-medium`}>
-                                    {review.Sentiment}
-                                </div>
-                                <div className={`bg-gray-50 px-2 py-0.5 rounded-full text-xs font-medium`}>
-                                    {review.trip_type}
-                                </div>
-                            </div>
-                            <ReviewContent review={review.review} />
-                        </div>
-                    </div>
-                    {index !== currentPageData.length - 1 && <Separator />}
-                </React.Fragment>
-            ))}
+    const tableRef = useRef<HTMLDivElement>(null); // Ref for the table element
 
-            <Pagination>
+    const handleDownload = async () => {
+        if (tableRef.current) {
+            try {
+                const dataUrl = await domtoimage.toPng(tableRef.current);
+                const link = document.createElement('a');
+                link.href = dataUrl;
+                link.download = 'review_table.png';
+                link.click();
+            } catch (error) {
+                console.error('Error downloading image:', error);
+            }
+        }
+    };
+
+    return (
+        <div className="mx-auto px-4 md:px-6 max-w-2xl grid gap-8" ref={tableRef}>
+            <div className="grid gap-8 md:max-w-2xl">
+                {currentPageData.map((review, index) => (
+                    <React.Fragment key={index}>
+                        <div className="flex flex-col md:flex-row gap-4 md:items-center">
+                            <Avatar className="w-10 h-10 border">
+                                <AvatarImage src="/placeholder-user.jpg" />
+                                <AvatarFallback>CN</AvatarFallback>
+                            </Avatar>
+                            <div className="grid gap-2 md:ml-4">
+                                <div className="flex items-center gap-2 flex-wrap">
+                                    <div className="font-medium">Review from {review.Platform} ({review.date_of_stay})</div>
+                                    <div className={`bg-${review.Sentiment == 'Positive' ? 'green' : review.Sentiment == 'Negative' ? 'red' : 'gray'}-100 px-2 py-0.5 rounded-full text-xs font-medium`}>
+                                        {review.Sentiment}
+                                    </div>
+                                    <div className={`bg-gray-50 px-2 py-0.5 rounded-full text-xs font-medium`}>
+                                        {review.trip_type}
+                                    </div>
+                                </div>
+                                <ReviewContent review={review.review} />
+                            </div>
+                        </div>
+                        {index !== currentPageData.length - 1 && <Separator />}
+                    </React.Fragment>
+                ))}
+            </div>
+            <Pagination className="mt-4 justify-center">
                 <PaginationContent>
                     <PaginationItem>
                         <PaginationPrevious onClick={() => handlePageChange(currentPage - 1)} />
@@ -84,7 +102,11 @@ export default function ReviewTable({ data }: ReviewTableProps) {
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>
-        </div>
+
+            <button className="bg-blue-500 hover:bg-blue-200 text-white font-bold py-2 px-4 rounded" style={{ width: '50%' }} onClick={handleDownload}>
+                Download
+            </button>
+        </div >
     );
 }
 
