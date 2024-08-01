@@ -7,7 +7,7 @@ import { ActivityIcon, PercentIcon, TrendingUpIcon, UsersIcon } from "@/componen
 import StatCardItem from "./Components/Stats"
 import SentimentTrendsChart from './Components/Charts/LineChart';
 import PieChart from './Components/Charts/PieChart';
-import ReviewTable from './Components/Reviews';
+import ReviewTable from './Components/reviewsSection';
 
 interface ReviewData {
   "": number;
