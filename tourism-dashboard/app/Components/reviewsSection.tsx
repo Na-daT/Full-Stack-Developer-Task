@@ -3,6 +3,8 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { Pagination, PaginationContent, PaginationItem, PaginationPrevious, PaginationLink, PaginationNext, PaginationEllipsis } from "@/components/ui/pagination";
 import domtoimage from 'dom-to-image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 interface ReviewData {
     "": number;
@@ -60,7 +62,14 @@ export default function ReviewTable({ data }: ReviewTableProps) {
 
     return (
         <div className="mx-auto px-4 md:px-6 max-w-2xl grid gap-8" ref={tableRef}>
-            <div className="grid gap-8 md:max-w-2xl">
+            <div className="grid gap-8 md:max-w-2xl relative">
+                <button
+                    className="absolute top-0 right-0 z-10 bg-white rounded-bl-lg rounded-tr-lg p-2 hover:bg-gray-100"
+                    onClick={handleDownload}
+                    style={{ top: '-30px', right: '-20px' }}
+                >
+                    <FontAwesomeIcon icon={faDownload} />
+                </button>
                 {currentPageData.map((review, index) => (
                     <React.Fragment key={index}>
                         <div className="flex flex-col md:flex-row gap-4 md:items-center">
@@ -102,10 +111,6 @@ export default function ReviewTable({ data }: ReviewTableProps) {
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>
-
-            <button className="bg-blue-500 hover:bg-blue-200 text-white font-bold py-2 px-4 rounded" style={{ width: '50%' }} onClick={handleDownload}>
-                Download
-            </button>
         </div >
     );
 }
